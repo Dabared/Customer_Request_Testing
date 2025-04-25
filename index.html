@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Request Letter System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Customer Request Letter</h1>
+    <form id="requestForm">
+      <label for="name">Customer Name:</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="details">Request Details:</label>
+      <textarea id="details" name="details" required></textarea>
+      
+      <button type="submit">Submit Request</button>
+    </form>
+
+    <h2>Track Your Request</h2>
+    <form id="statusForm">
+      <label for="unitCode">Unit Code:</label>
+      <input type="text" id="unitCode" name="unitCode" required>
+      <button type="submit">Check Status</button>
+    </form>
+    
+    <div id="statusResult"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
