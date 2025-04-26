@@ -2,32 +2,76 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Customer Request Letter System</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Update Google Sheet Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f2f2f2;
+    }
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    input[type="text"], button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .message {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Customer Request Letter</h1>
-    <form id="requestForm">
-      <label for="name">Customer Name:</label>
-      <input type="text" id="name" name="name" required>
-      
-      <label for="details">Request Details:</label>
-      <textarea id="details" name="details" required></textarea>
-      
-      <button type="submit">Submit Request</button>
-    </form>
 
-    <h2>Track Your Request</h2>
-    <form id="statusForm">
-      <label for="unitCode">Unit Code:</label>
-      <input type="text" id="unitCode" name="unitCode" required>
-      <button type="submit">Check Status</button>
-    </form>
-    
-    <div id="statusResult"></div>
-  </div>
+<div class="form-container">
+  <h2>Update Your Info</h2>
+  <form id="user-form">
+    <input type="text" id="name" name="name" placeholder="Enter your name" required />
+    <input type="text" id="address" name="address" placeholder="Enter your address" required />
+    <button type="submit">Submit</button>
+    <div class="message" id="message"></div>
+  </form>
+</div>
 
-  <script src="script.js"></script>
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyj_9u1xJBwNK8awoRT8bccbFbPnkKBoiNunlDQ9mhwVTLr1I6owPUHh5flzn7x0ymB/exec';
+  const form = document.getElementById('user-form');
+  const message = document.getElementById('message');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    fetch(scriptURL, { method: 'POST', body: formData })
+      .then(response => {
+        message.textContent = 'Success! Data submitted ✅';
+        message.style.color = 'green';
+        form.reset();
+      })
+      .catch(error => {
+        message.textContent = 'Error! Data not submitted ❌';
+        message.style.color = 'red';
+        console.error('Error!', error.message);
+      });
+  });
+</script>
+
 </body>
 </html>
